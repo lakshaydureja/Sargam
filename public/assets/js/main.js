@@ -67,5 +67,5 @@ function handleButtonClick(event) {
     // Add your logic here (e.g., form validation)
 
     // Redirect to the new HTML page on the client side
-    window.location.href = '../views/order.html';
+    window.location.href = '/onboard';
 }

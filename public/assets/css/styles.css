@@ -554,3 +554,60 @@ img {
 .card-button:hover {
   background-color: #2980b9;
 }
+
+
+/* footer */
+.footer {
+  text-align: center; /* Center the content in the footer */
+}
+
+.footer__title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.footer__row {
+  padding-left: 30vw;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.footer__column {
+  flex: 1;
+  margin-right: 20px;
+  text-align: left; /* Left-align text */
+}
+
+.footer__social {
+  margin-bottom: 20px;
+}
+
+.footer__icon {
+  margin-right: 10px;
+}
+
+.footer__copy {
+  font-size: 0.8em;
+}
+.whiteT{
+  color: #f1f0f0;
+  text-decoration: underline;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .footer__row {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .footer__column {
+      flex: none;
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 20px;
+  }
+}

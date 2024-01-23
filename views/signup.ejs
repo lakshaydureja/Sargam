@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head'); %>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f0f5ff;
+                /* Light blue background color */
+                color: #333;
+            }
+
+            .signup-container {
+                max-width: 400px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fff;
+                /* White background color */
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            input {
+                width: 100%;
+                padding: 10px;
+                box-sizing: border-box;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+
+            button {
+                background-color: #007bff;
+                /* Blue button color */
+                color: #fff;
+                padding: 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #0056b3;
+                /* Darker blue on hover */
+            }
+
+            .login-link {
+                text-align: center;
+                margin-top: 15px;
+            }
+
+            .login-link a {
+                color: #007bff;
+                /* Blue link color */
+                text-decoration: none;
+            }
+
+            .login-link a:hover {
+                text-decoration: underline;
+            }
+
+            .terms-line {
+                width: 100%;
+                height: 1px;
+                background-color: #ccc;
+                margin: 15px 0;
+            }
+
+            .terms-text {
+                color: #666;
+                font-size: 12px;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('./partials/header'); %>
+
+
+
+        <main class="l-main">
+
+
+
+            <section class="contact section" id="contact">
+                <h2 class="section-title">
+                    Sign Up
+                </h2>
+
+                <div class="contact__container bd-grid">
+
+                    <!-- Content Here -->
+                    <div class="signup-container">
+                        <!-- Signup Form Here -->
+                        <form action="/register" method="post">
+                            <div class="form-group">
+                                <label for="phoneNumber">Phone Number</label>
+                                <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+
+                            <button type="submit">Sign Up</button>
+                        </form>
+
+
+
+
+                        <div class="login-link">
+                            <p>Already have an account? <a href="/onboard2">Login here</a></p>
+                        </div>
+
+                        <div class="terms-line"></div>
+
+                        <p class="terms-text">When you sign up, you agree to our <a href="/staticTC">Terms and
+                                Conditions</a>.</p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+        <%- include('./partials/footer'); %>
+
+</body>
+
+</html>

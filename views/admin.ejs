@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head'); %>
+
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f8f9fa;
+                /* Light gray background color */
+                color: #333;
+                margin: 0;
+                padding: 0;
+                line-height: 1.6;
+            }
+
+            .admin-dashboard-container {
+                max-width: 800px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #007bff;
+                /* Blue background color */
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                color: #fff;
+            }
+
+            .user-list {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .user-list-item {
+                cursor: pointer;
+                margin-bottom: 10px;
+                padding: 10px;
+                background-color: #0056b3;
+                /* Darker blue background color */
+                border-radius: 5px;
+            }
+
+            .user-details {
+                display: none;
+                margin-top: 10px;
+                padding: 10px;
+                border: 2px solid #0056b3;
+                /* Darker blue border */
+                border-radius: 8px;
+                background-color: #fff;
+            }
+
+            .edit-button {
+                background-color: #0056b3;
+                /* Darker blue background color for edit button */
+                color: #fff;
+                padding: 5px 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 10px;
+                margin-left: 15px;
+
+            }
+
+            .edit-mode input {
+                border: 1px solid #4CAF50;
+                /* Green border for input in edit mode */
+            }
+
+            .delete-button {
+                background-color: #0056b3;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .right {
+                text-align: right;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('./partials/header'); %>
+
+        <main class="l-main">
+            <section class="contact section" id="admin-dashboard">
+                <div class="admin-dashboard-container">
+                    <h2 class="section-title" style="color: #fff;">Admin Dashboard</h2>
+
+                    <ul class="user-list" id="userList">
+                        <!-- User list will be populated dynamically -->
+                    </ul>
+
+                    <div class="user-details" id="userDetails">
+                        <!-- User details will be displayed here -->
+
+                    </div>
+                </div>
+            </section>
+        </main>
+        <%- include('./partials/footer'); %>
+
+            <script>
+                var selectedUserId = null;
+
+                var userData = `<%- JSON.stringify(userData) %>`;
+                userData = userData.replace(/[\u0000-\u001F\u007F-\u009F]/g, '');
+                userData = JSON.parse(userData);
+
+                // console.log(userData);  // Log the string to the console
+
+
+                // Function to populate user list
+                function populateUserList() {
+                    const userList = document.getElementById('userList');
+
+                    userData.forEach(user => {
+                        const listItem = document.createElement('li');
+                        listItem.classList.add('user-list-item');
+                        listItem.textContent = user.fullName;
+                        listItem.onclick = () => {
+                            displayUserDetails(user);
+                            storeSelectedUserId(user.userId);
+                        }
+                        userList.appendChild(listItem);
+                    });
+                }
+                //user.userId
+                // Function to display user details
+                function displayUserDetails(user) {
+                    const userDetails = document.getElementById('userDetails');
+                        var nameOfPack = "error";
+                    
+                        switch (user.trackType) {
+                            case "1":
+                            nameOfPack = "Acoustic and Soothing (1 - 2 min duration) - Rs. 1800"
+                                break;
+                            case "2":
+                            nameOfPack = "Professional - Studio Quality Track (2 - 3 min duration) - Rs. 2499"
+                                break;
+                            case "3":
+                            nameOfPack = "Bollywood Style - Best for Weddings (3 - 4 min duration) - Rs. 4999"
+                                break;
+                        }
+                    userDetails.innerHTML = `
+                <h2>${user.fullName}</h2>
+                <br>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <br>
+                <p><strong>Track Type:</strong>  ${nameOfPack}</p>
+                <br>
+                <p><strong>Description:</strong>  ${user.description}</p>
+                <br>
+                <p><strong>WhatsApp Number:</strong>  ${user.whatsappNumber}</p>
+                <br>
+                <p><strong>Fees Paid:</strong>  ${user.feePaid}</p>
+                <br>
+                <p><strong>Order ID:</strong>  ${user.orderId}</p>
+                <br>
+                <label for="statusInput"><strong>Status:</strong></label>
+                <input type="text" id="statusInput" value="${user.timeline}" disabled>
+                
+                <button class="edit-button" onclick="toggleEditMode()">Edit User Status</button>
+                    <button class="edit-button" onclick="updateUserStatus()">Update Status</button>
+<br>
+                    <br>
+                    <div class = "right">
+      <button class="delete-button" onclick="deleteUser()">Delete User</button>
+</div>
+                `;
+                    userDetails.style.display = 'block';
+                    userDetails.style.color = 'black';
+
+
+                }
+
+                // // Function to edit user details (you can implement your own edit logic)
+                // function editUserDetails() {
+                //     alert('Edit functionality will be implemented here.');
+                // }
+
+                // Function to toggle edit mode
+                function toggleEditMode() {
+                    const userDetails = document.getElementById('userDetails');
+                    userDetails.classList.toggle('edit-mode');
+
+                    const statusInput = userDetails.querySelector('#statusInput');
+                    statusInput.disabled = !statusInput.disabled;
+                }
+
+                function storeSelectedUserId(userId) {
+                    selectedUserId = userId;
+                }
+
+
+                // Function to update user status
+                function updateUserStatus() {
+
+                    const statusInput = document.getElementById('statusInput');
+                    const newStatus = statusInput.value;
+
+                    alert(`Status for user ${userData.fullName} updated to: ${newStatus}`);
+
+
+                    sendUpdateToBackend(selectedUserId, newStatus);
+
+                }
+
+                function deleteUser() {
+                    //you can use var selectedUserId it is a global variable.
+                    if (confirm('Are you sure you want to delete this user?')) {
+                        const userIdToDelete = selectedUserId;
+
+                        fetch(`/deleteUser/${userIdToDelete}`, {
+                            method: 'DELETE',
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to delete user');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                alert('User deleted successfully!');
+                                location.reload();
+                            })
+                            .catch(error => {
+                                console.error('Error deleting user:', error.message);
+                            });
+                    }
+                }
+
+
+                // Function to send the update to the backend
+                function sendUpdateToBackend(userId, newStatus) {
+                    // Make a fetch request or use another method to send the update to the backend
+                    // Modify the endpoint and headers according to your backend API
+                    fetch('/updateUserStatus', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ userId, newStatus }),
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to update status');
+                            }
+                            return response.json();
+
+                        })
+                        .then(data => {
+                            console.log('Status updated successfully:', data);
+                            // Optionally update the UI or take additional actions
+                            if (data.message === 'User status updated successfully') {
+                                // Reload the page
+                                location.reload();
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error updating status:', error.message);
+                        });
+                }
+
+
+                document.addEventListener('DOMContentLoaded', function () {
+
+                    populateUserList();
+                    // Populate user list on page load
+                });
+            </script>
+</body>
+
+</html>
