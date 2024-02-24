@@ -1,5 +1,5 @@
 /*===== GOOGLE FONTS =====*/
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"); */
 /*===== VARIABLES CSS =====*/
 :root {
   --header-height: 3rem;
@@ -7,9 +7,10 @@
   /*===== Colores =====*/
   /*Purple 260 - Red 355 - Blue 224 - Pink 340*/
   /* HSL color mode */
-  --hue-color: 224;
-  --first-color: hsl(var(--hue-color), 89%, 60%);
+  --hue-color: 17;
+  --first-color: hsl(var(--hue-color), 46%, 63%);
   --second-color: hsl(var(--hue-color), 56%, 12%);
+  --background-color: hsl(44, 100%, 98%);
   /*===== Fuente y tipografia =====*/
   --body-font: "Poppins", sans-serif;
   --big-font-size: 2rem;
@@ -48,10 +49,13 @@ body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
   color: var(--second-color);
+  background-color: var(--background-color);
 }
 
 h1, h2, p {
   margin: 0;
+  font-family: 'Poppins', sans-serif;
+
 }
 
 ul {
@@ -545,14 +549,14 @@ img {
   padding: 10px;
   text-align: center;
   text-decoration: none;
-  background-color: #3498db;
+  background-color: var(--first-color);
   color: #fff;
   border-radius: 5px;
   transition: background-color 0.3s;
 }
 
 .card-button:hover {
-  background-color: #2980b9;
+  background-color: var(--second-color);
 }
 
 
@@ -562,7 +566,9 @@ img {
 }
 
 .footer__title {
-  font-size: 1.5em;
+  font-size: 2.5em;
+  font-family: 'Playfair Display SC', serif;
+
   margin-bottom: 10px;
 }
 

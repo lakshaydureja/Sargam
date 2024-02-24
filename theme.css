@@ -1,0 +1,51 @@
+
+
+/* 
+background (pink cremeish)
+
+hex - #fefaef
+rgb - rgba(254,250,239,255)
+
+main - 
+#cc8674
+rgba(204,134,116,255)
+
+
+
+
+
+
+Primary Brand Color:
+#cc8674 (Your main brand color)
+
+Accent Colors:
+#e7b39f (A lighter shade of your brand color)
+#a14f3f (A darker shade of your brand color)
+
+Background Color:
+#fefaef (The background color from your Instagram page)
+
+Neutral Colors:
+#f5f5f5 (Light gray for subtle contrasts)
+#333333 (Dark gray for text and borders)
+
+Highlight Color:
+#ffd700 (A vibrant gold for call-to-action elements)
+
+
+
+
+
+ --hue-color: 16; /* Adjust the hue as needed */
+ /* --first-color: hsl(var(--hue-color), 80%, 50%); Your primary brand color */
+ /* --second-color: hsl(var(--hue-color), 38%, 10%); A darker shade for contrast */
+  /*--background-color: hsl(44, 100%, 98%); Background color from your Instagram page */
+  /*--light-accent-color: hsl(var(--hue-color), 70%, 75%); A lighter shade for accents */
+  /*--dark-accent-color: hsl(var(--hue-color), 25%, 20%); A darker shade for accents */
+ /* --neutral-light: hsl(0, 0%, 96%); Light gray for subtle contrasts */
+ /*--neutral-dark: hsl(0, 0%, 20%);  Dark gray for text and borders */
+/* --highlight-color: hsl(48, 100%, 50%);  Vibrant gold for call-to-action elements */
+
+
+/*  
+*/

@@ -5,9 +5,16 @@
     <%- include('./partials/head'); %>
 
         <style>
+            :root {
+                --hue-color: 17;
+                --first-color: hsl(var(--hue-color), 46%, 63%);
+                --second-color: hsl(var(--hue-color), 56%, 12%);
+                --background-color: hsl(44, 100%, 98%);
+            }
+
             body {
                 font-family: 'Arial', sans-serif;
-                background-color: #f8f9fa;
+                background-color: var(--background-color);
                 /* Light gray background color */
                 color: #333;
                 margin: 0;
@@ -19,11 +26,14 @@
                 max-width: 800px;
                 margin: 20px auto;
                 padding: 20px;
-                background-color: #007bff;
+                background-color: #f3f3f3;
+
                 /* Blue background color */
                 border-radius: 8px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
+                color: var(--second-color);
+                /* color:#fff ; */
+
             }
 
             .user-list {
@@ -33,26 +43,30 @@
             }
 
             .user-list-item {
+                font-family: 'Josefin Sans', sans-serif;
+                font-size: 1.3rem;
                 cursor: pointer;
                 margin-bottom: 10px;
                 padding: 10px;
-                background-color: #0056b3;
+                background-color: var(--first-color);
                 /* Darker blue background color */
                 border-radius: 5px;
             }
 
             .user-details {
+                font-family: 'Poppins', sans-serif;
+
                 display: none;
                 margin-top: 10px;
                 padding: 10px;
-                border: 2px solid #0056b3;
+                border: 2px solid #cc8674;
                 /* Darker blue border */
                 border-radius: 8px;
                 background-color: #fff;
             }
 
             .edit-button {
-                background-color: #0056b3;
+                background-color: var(--first-color);
                 /* Darker blue background color for edit button */
                 color: #fff;
                 padding: 5px 10px;
@@ -70,7 +84,7 @@
             }
 
             .delete-button {
-                background-color: #0056b3;
+                background-color: var(--second-color);
                 color: white;
                 border: none;
                 padding: 5px 10px;
@@ -81,16 +95,22 @@
             .right {
                 text-align: right;
             }
+
+            .section-title {
+                color: var(--second-color);
+                font-family: 'Roboto', sans-serif;
+            }
         </style>
 </head>
 
 <body>
-    <%- include('./partials/header'); %>
+    <%- include('./partials/header2'); %>
 
         <main class="l-main">
             <section class="contact section" id="admin-dashboard">
                 <div class="admin-dashboard-container">
-                    <h2 class="section-title" style="color: #fff;">Admin Dashboard</h2>
+                    <h2 class="section-title">Admin Dashboard
+                    </h2>
 
                     <ul class="user-list" id="userList">
                         <!-- User list will be populated dynamically -->
@@ -134,19 +154,19 @@
                 // Function to display user details
                 function displayUserDetails(user) {
                     const userDetails = document.getElementById('userDetails');
-                        var nameOfPack = "error";
-                    
-                        switch (user.trackType) {
-                            case "1":
+                    var nameOfPack = "error";
+
+                    switch (user.trackType) {
+                        case "1":
                             nameOfPack = "Acoustic and Soothing (1 - 2 min duration) - Rs. 1800"
-                                break;
-                            case "2":
+                            break;
+                        case "2":
                             nameOfPack = "Professional - Studio Quality Track (2 - 3 min duration) - Rs. 2499"
-                                break;
-                            case "3":
+                            break;
+                        case "3":
                             nameOfPack = "Bollywood Style - Best for Weddings (3 - 4 min duration) - Rs. 4999"
-                                break;
-                        }
+                            break;
+                    }
                     userDetails.innerHTML = `
                 <h2>${user.fullName}</h2>
                 <br>

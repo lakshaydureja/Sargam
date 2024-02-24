@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/99c66b3b-450a-4200-a26d-54ac1435bc9e/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/sargam",
+    "appService.deploySubpath": "."
+}

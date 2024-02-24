@@ -5,10 +5,17 @@
     <%- include('./partials/head'); %>
         <!-- You can include additional styles for your dashboard page here -->
         <style>
+            :root {
+                --hue-color: 17;
+                --first-color: hsl(var(--hue-color), 46%, 63%);
+                --second-color: hsl(var(--hue-color), 56%, 12%);
+                --background-color: hsl(44, 100%, 98%);
+            }
+
+
             body {
                 font-family: 'Arial', sans-serif;
-                background-color: #f8f9fa;
-                /* Light gray background color */
+                background-color: var(--background-color);
                 color: #333;
                 margin: 0;
                 padding: 0;
@@ -16,34 +23,32 @@
             }
 
             .dashboard-container {
-                max-width: 800px;
+                max-width: 930px;
                 margin: 20px auto;
                 padding: 20px;
-                background-color: #007bff;
-                /* Blue background color */
+                background-color: #f3f3f3;
                 border-radius: 8px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
+                color: #333;
             }
 
-            .user-info-container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
+            .user-info-container,
+            .form-container {
+                text-align: left;
             }
 
-            .user-info-box {
+            .user-info-box,
+            .form-box {
                 padding: 20px;
                 border-radius: 8px;
                 margin-bottom: 20px;
-                text-align:left;
-                border: 2px solid #0056b3;
-                /* Darker blue border */
+                text-align: left;
+                border: 2px solid #cc8674;
             }
 
             .status-paid,
             .status-unpaid {
-                font-weight: bolder;
+                font-weight: bold;
                 border-radius: 8px;
                 margin-top: 10px;
             }
@@ -54,8 +59,7 @@
             }
 
             .form-link a {
-                color: #fff;
-                /* White link color */
+                color: var(--first-color);
                 text-decoration: none;
             }
 
@@ -64,23 +68,33 @@
             }
 
             /* Form styling */
+            ol {
+                text-align: left;
+                font-family: 'Zilla Slab', serif;
+                font-size: 1.1rem;
+
+            }
+
             form {
                 max-width: 100%;
                 margin: 0 auto;
                 background-color: #f3f3f3;
-                /* Match the blue box color */
                 padding: 2vh;
                 border-radius: 8px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #000000;
+                color: #333;
             }
 
             label {
+                color: #333;
+                font-family: 'Roboto', sans-serif;
+
                 display: block;
-                margin-bottom: 8px;
+                margin-top: 8px;
             }
 
             input {
+                margin-top: 4px;
                 padding: 10px;
                 margin-bottom: 15px;
                 border: 1px solid #ccc;
@@ -92,68 +106,88 @@
                 margin-bottom: 15px;
             }
 
-            .radio-group input,
+            .radio-group input {
+                display: inline-block;
+                margin-top: 23px;
+                accent-color: var(--first-color);
+            }
+
             .radio-group label {
                 display: inline-block;
+
             }
 
             button {
-                background-color: #007bff;
+                background-color: var(--first-color);
                 color: #fff;
                 padding: 10px 20px;
                 border: none;
                 border-radius: 4px;
                 cursor: pointer;
                 font-size: 16px;
+                margin-top: 5px;
             }
 
             button:hover {
-                background-color: #0056b3;
+                background-color: var(--second-color);
             }
 
             /* Additional notes styling */
-            p strong {
-                font-weight: bold;
+            p {
+                font-size: 1rem;
+                font-family: 'Zilla Slab', serif;
+
+            }
+
+            .rad {
+                display: flex;
+                align-items: center;
             }
 
             /* Responsive styles for mobile */
             @media screen and (max-width: 600px) {
                 .dashboard-container {
                     padding: 15px;
-                    /* Reduced padding for mobile */
                 }
 
-                .user-info-box {
+                .user-info-box,
+                .form-box {
                     padding: 15px;
-                    /* Reduced padding for mobile */
                 }
 
                 form {
                     padding: 15px;
-                    /* Reduced padding for mobile */
                 }
 
                 input {
                     font-size: 14px;
-                    /* Adjust font size for mobile */
                 }
 
                 button {
                     font-size: 14px;
-                    /* Adjust font size for mobile */
                 }
             }
 
-            titleh {
+            .titleh {
+                font-family: 'Josefin Sans', sans-serif;
+
                 text-align: center;
-                color: #007bff;
-                /* Blue color */
+                color: var(--second-color);
                 font-size: 2.5rem;
-                /* Adjust the font size */
                 margin-bottom: 20px;
                 font-weight: bold;
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-                /* Text shadow for a subtle effect */
+            }
+
+            .titleh2 {
+                font-family: 'Josefin Sans', sans-serif;
+
+                text-align: center;
+                color: var(--second-color);
+                font-size: 2rem;
+                margin-bottom: 20px;
+                font-weight: bold;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
             }
 
             .center-container {
@@ -164,152 +198,354 @@
                 width: 100%;
                 padding: 1vw;
                 box-sizing: border-box;
-                /* Ensure padding is included in the width */
                 height: 150px;
-                /* Set the height as needed */
                 margin-bottom: 20px;
-                /* Add margin to separate it from other elements */
+            }
+
+
+            .popup {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 20px;
+                font-size: larger;
+                font-family: 'Josefin Sans', sans-serif;
+                font-weight: bold;
+                color: #fff;
+                background-color: #cc8674;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                z-index: 1;
             }
         </style>
 </head>
 
 <body>
-    <%- include('./partials/header'); %>
+    <%- include('./partials/header2'); %>
 
         <main class="l-main">
             <section class="contact section" id="dashboard">
+                <% var paid="NO" %>
+                    <% if (userInfo[0].feePaid) { %>
+                        <% paid="YES" %>
+                            <div class="user-info-container">
+                                <h1 class="titleh">Dashboard</h1>
+                            </div>
 
-                <% if (userInfo[0].feePaid) { %>
-                    <div class="center-container">
-                        <h1 class="titleh">Dashboard</h1>
-                    </div>
-                    <% } else { %>
-                        <div class="center-container">
+                            <% var nameOfPack="error" %>
 
-                            <h1 class="titleh">Let's get started</h1>
-                        </div>
-                        <% } %>
+                                <% switch (userInfo[0].trackType) { case "1" :
+                                    nameOfPack="Acoustic and Soothing (1 - 2 min duration) - Rs. 1800" ; break; case "2"
+                                    : nameOfPack="Professional - Studio Quality Track (2 - 3 min duration) - Rs. 2499" ;
+                                    break; case "3" :
+                                    nameOfPack="Bollywood Style - Best for Weddings (3 - 4 min duration) - Rs. 4999" ;
+                                    break; } %>
 
 
-                            <div class="dashboard-container">
 
-                                <% if (userInfo[0].feePaid) { %>
-                                    <div class="center-container">
-                                        <br>
 
-                                        <h1 class="titleh">Your Information</h1>
-
-                                        <br><br>
-                                    </div>
                                     <% } else { %>
-                                        <div class="center-container">
-                                            <br>
-                                            <h1 class="titleh">Here's the process</h1>
+                                        <div class="user-info-container">
+                                            <h1 class="titleh">Let's get started</h1>
                                         </div>
                                         <% } %>
 
 
-                                            <% if (userInfo[0].feePaid) { %>
-                                                <!-- User Information Box -->
-                                                <div class="user-info-container">
-                                                    <div class="user-info-box">
-                                                        <h3>
-                                                            <%= userInfo[0].fullName %>
-                                                        </h3>
-                                                        <br>
-                                                        <p><strong>Email:</strong> <%= userInfo[0].email %>
-                                                        </p><br>
-                                                        <p><strong>WhatsApp Number:</strong> <%= userInfo[0].whatsappNumber %>
-                                                        </p><br>
-                                                        <p><strong>Description:</strong> <%= userInfo[0].description %>
-                                                        </p><br>
-                                                        <p><strong>Track Type:</strong> <%= userInfo[0].trackType %>
-                                                        </p><br>
-                                                        <p><strong>Order ID:</strong> <%= userInfo[0].orderId %>
-                                                        </p><br>
-                                                        <p><strong>Fees Paid:</strong> <%= userInfo[0].feesPaid ? 'Yes' : 'No' %>
-                                                        </p><br>
-                                                        <div class="status-paid">
-                                                        <p><strong>Status:</strong> <%= userInfo[0].timeline %></p>
-                                                        </div><br>
+
+                                            <div class="dashboard-container">
+
+                                                <% if (userInfo[0].feePaid) { %>
+                                                    <div class="user-info-container">
+                                                        <h1 class="titleh2">Your Information</h1>
                                                     </div>
-                                                    <div class="form-link">
-                                                        <p>Contact us: +91-123456789 </a></p>
-                                                    </div>
-                                                </div>
-                                                <% } else { %><br>
-                                                    <!-- Form Container -->
-                                                    <ol>
-                                                        <li>Within 24 hours, we'll reach out to start the journey of
-                                                            creating your special song.</li>
-                                                        <li>You'll share your personal story, feelings, and any specific
-                                                            ideas for the song.</li>
-                                                        <li>Our team will turn your story into a beautiful melody from
-                                                            your heart.</li>
-                                                        <li>We'll show you the composition, and you can tell us if you
-                                                            like it or want any changes. It's
-                                                            important to us that the song reflects your emotions
-                                                            perfectly.</li>
-                                                        <li>After your approval, we'll create the song with love and
-                                                            care, ready to be treasured forever.
-                                                        </li>
-                                                        <li>You'll receive your song within a week.</li>
-                                                    </ol>
-                                                    <br><br><br>
-
-
-                                                    <form id="paymentForm" method="post" action="/submitPaymentData">
-                                                        <label for="fullName">Full Name:</label>
-                                                        <input type="text" id="fullName" name="fullName" required>
-
-                                                        <label for="email">Email:</label>
-                                                        <input type="email" id="email" name="email" required>
-
-                                                        <label for="trackType">Track Type:</label>
-                                                        <div class="radio-group">
-                                                            <input type="radio" id="trackType1" name="trackType"
-                                                                value="1" checked>
-                                                            <label for="trackType1">Acoustic and Soothing (1 - 2 min
-                                                                duration) - Rs. 1800</label>
-                                                            <br><br>
-                                                            <input type="radio" id="trackType2" name="trackType"
-                                                                value="2">
-                                                            <label for="trackType2">Professional - Studio Quality Track
-                                                                (2 - 3 min duration) - Rs. 2499</label>
-                                                            <br><br>
-                                                            <input type="radio" id="trackType3" name="trackType"
-                                                                value="3">
-                                                            <label for="trackType3">Bollywood Style - Best for Weddings
-                                                                (3 - 4 min duration) - Rs. 4999</label>
+                                                    <% } else { %>
+                                                        <div class="user-info-container">
+                                                            <h1 class="titleh2">Here's the process</h1>
                                                         </div>
+                                                        <% } %>
 
-                                                        <label for="description">Description:</label>
-                                                        <textarea id="description" name="description"
-                                                            class="description-box" placeholder= "Share your story with us! Tell us about your special occasion, the emotions you want to convey, and any specific details you would like to include in your customized song. The more you share, the more personalized and meaningful your song will be." required></textarea>
+                                                            <% if (userInfo[0].feePaid) { %>
+                                                                <!-- User Information Box -->
+                                                                <div class="user-info-box">
+                                                                    <h3>
+                                                                        <%= userInfo[0].fullName %>
+                                                                    </h3>
+                                                                    <br>
+                                                                    <p><strong>Email:</strong>
+                                                                        <%= userInfo[0].email %>
+                                                                    </p><br>
+                                                                    <p><strong>WhatsApp Number:</strong>
+                                                                        <%= userInfo[0].whatsappNumber %>
+                                                                    </p><br>
+                                                                    <p><strong>Description:</strong>
+                                                                        <%= userInfo[0].description %>
+                                                                    </p><br>
+                                                                    <p><strong>Track Type:</strong>
+                                                                        <%= nameOfPack %>
+                                                                    </p><br>
+                                                                    <p><strong>Order ID:</strong>
+                                                                        <%= userInfo[0].orderId %>
+                                                                    </p><br>
+                                                                    <p><strong>Fees Paid:</strong>
+                                                                        <%= paid %>
+                                                                    </p><br>
+                                                                    <div class="status-paid">
+                                                                        <p><strong>Status:</strong>
+                                                                            <%= userInfo[0].timeline %>
+                                                                        </p><br>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-link">
+                                                                    <p><strong>We will send your track on your
+                                                                            email within 6-7 days.</strong><br>Feel Free to contact us at
+                                                                        : +91 7988453739</p>
+                                                                </div>
+                                                                <% } else { %>
+                                                                    <!-- Form Container -->
 
-                                                        <label for="whatsappNumber">WhatsApp Number:</label>
-                                                        <input type="tel" id="whatsappNumber" name="whatsappNumber"
-                                                            required>
+                                                                    <div class="form-container">
+                                                                        <ol>
+                                                                            <li>Within 24 hours, we'll reach out to
+                                                                                start the
+                                                                                journey of creating your special song.
+                                                                            </li>
+                                                                            <li>You'll share your personal story,
+                                                                                feelings, and
+                                                                                any specific ideas for the song.</li>
+                                                                            <li>Our team will turn your story into a
+                                                                                beautiful
+                                                                                melody from your heart.</li>
+                                                                            <li>We'll show you the composition, and you
+                                                                                can tell
+                                                                                us if you like it or want any changes.
+                                                                                It's important to us that the song
+                                                                                reflects your
+                                                                                emotions perfectly.</li>
+                                                                            <li>After your approval, we'll create the
+                                                                                song with
+                                                                                love and care, ready to be treasured
+                                                                                forever.
+                                                                            </li>
+                                                                            <li>You'll receive your song within a week.
+                                                                            </li>
+                                                                        </ol>
+                                                                        <br>
+                                                                        <form id="paymentForm" method="post"
+                                                                            action="/submitPaymentData">
+                                                                            <label for="fullName">Full Name:</label>
+                                                                            <input type="text" id="fullName"
+                                                                                name="fullName" required>
 
-                                                        <button type="submit">Submit</button>
-                                                    </form>
-                                                    <br><br><br>
-                                                    <p>
-                                                        <strong>Note:</strong>
-                                                        To secure your custom song creation, we kindly request a 50%
-                                                        payment in advance. This helps us ensure a seamless process and
-                                                        dedicate our full attention to crafting a unique musical
-                                                        experience just for you. Your satisfaction remains at the core
-                                                        of our commitment, and we're dedicated to making your musical
-                                                        journey truly unforgettable.
-                                                        <br>Payment methods - UPI or Bank transfer!
-                                                    </p>
-                                                    <% } %>
-                            </div>
+                                                                            <label for="email">Email:</label>
+                                                                            <input type="email" id="email" name="email"
+                                                                                required>
+
+                                                                            <label for="trackType">Track Type:</label>
+                                                                            <div class="radio-group">
+                                                                                <div class="rad">
+                                                                                    <input type="radio" id="trackType1"
+                                                                                        name="trackType" value="1"
+                                                                                        checked>
+                                                                                    <label for="trackType1">Acoustic and
+                                                                                        Soothing (1 - 2 min duration) -
+                                                                                        Rs.
+                                                                                        1800</label>
+                                                                                </div>
+
+                                                                                <br>
+                                                                                <div class="rad">
+
+                                                                                    <input type="radio" id="trackType2"
+                                                                                        name="trackType" value="2">
+                                                                                    <label for="trackType2">Professional
+                                                                                        -
+                                                                                        Studio
+                                                                                        Quality Track (2 - 3 min
+                                                                                        duration) - Rs.
+                                                                                        2499</label>
+                                                                                </div>
+                                                                                <br>
+                                                                                <div class="rad">
+
+                                                                                    <input type="radio" id="trackType3"
+                                                                                        name="trackType" value="3">
+                                                                                    <label for="trackType3">Bollywood
+                                                                                        Style -
+                                                                                        Best
+                                                                                        for Weddings (3 - 4 min
+                                                                                        duration) - Rs.
+                                                                                        4999</label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <label
+                                                                                for="description">Description:</label>
+                                                                            <textarea id="description"
+                                                                                name="description"
+                                                                                class="description-box"
+                                                                                placeholder="Share your story with us! Tell us about your special occasion, the emotions you want to convey, and any specific details you would like to include in your customized song. The more you share, the more personalized and meaningful your song will be."
+                                                                                required></textarea>
+
+                                                                            <label for="whatsappNumber">WhatsApp
+                                                                                Number:</label>
+                                                                            <input type="tel" id="whatsappNumber"
+                                                                                name="whatsappNumber" required>
+                                                                            &nbsp;&nbsp;
+                                                                            <button type="submit"
+                                                                                id="fbtn">Submit</button>
+                                                                            <div id="loadingPopup" class="popup">
+                                                                                Please wait...
+                                                                            </div>
+                                                                        </form>
+                                                                        <br>
+                                                                        <p>
+                                                                            <strong>Note:</strong> To initiate the
+                                                                            creation of your custom song, we now require
+                                                                            a 100% payment in advance. This updated
+                                                                            approach streamlines our process, allowing
+                                                                            us to fully commit our expertise and
+                                                                            attention to crafting a unique musical
+                                                                            experience tailored just for you. Your
+                                                                            satisfaction continues to be our top
+                                                                            priority, and we are committed to ensuring
+                                                                            your musical journey is not only seamless
+                                                                            but also truly unforgettable. Thank you for
+                                                                            entrusting us with the opportunity to create
+                                                                            something special for you.
+                                                                            <br>Payment methods - UPI or Bank transfer!
+                                                                        </p>
+                                                                    </div>
+                                                                    <% } %>
+                                            </div>
             </section>
         </main>
 
         <%- include('./partials/footer'); %>
+            <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+            <script>
+                document.getElementById("paymentForm").addEventListener("submit", async function (event) {
+                    event.preventDefault();
+
+                    // Make an AJAX request to your server to create an order
+                    try {
+                        const response = await fetch("/submitPaymentData", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                // Pass the form data to the server
+                                fullName: document.getElementById("fullName").value,
+                                email: document.getElementById("email").value,
+                                trackType: document.querySelector('input[name="trackType"]:checked').value,
+                                description: document.getElementById("description").value,
+                                whatsappNumber: document.getElementById("whatsappNumber").value,
+                            }),
+                        });
+
+                        if (!response.ok) {
+                            throw new Error("Failed to create order");
+                        }
+
+                        const responseData = await response.json();
+
+                        // Initialize Razorpay checkout
+                        const options = {
+                            key: responseData.key_id,
+                            amount: responseData.amount,
+                            currency: "INR",
+                            name: responseData.product_name,
+                            image: "assets/img/favicon.png",
+                            order_id: responseData.order_id,
+                            handler: function (response) {
+                                //*****after payment succesfull change the db value of payment is true 
+                                //****and refresh this page 
+                                //****and remove this alert feature
+                                //also add loading icon when user click submit show loading 
+
+
+
+                                // Handle the payment response
+                                if (response.razorpay_payment_id) {
+                                    // Payment successful, you can perform additional tasks on the client side
+
+                                    alert("Payment successful!");
+
+                                    const successData = {
+                                        orderId: response.razorpay_order_id,
+                                        paymentId: response.razorpay_payment_id,
+                                        signature: response.razorpay_signature,
+                                    };
+
+                                    fetch("/success", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify(successData),
+                                    })
+                                        .then((response) => {
+                                            if (response.ok) {
+                                                // Reload the dashboard on success
+                                                window.location.href = "/dashboard";
+                                            } else {
+                                                alert("Payment failed!");
+
+                                                // Redirect to error page on failure
+                                                window.location.href = "/error";
+                                            }
+                                        })
+                                        .catch((error) => {
+                                            console.error("Error notifying server:", error);
+                                            // Redirect to error page on fetch error
+                                            window.location.href = "/error";
+                                        });
+
+
+
+
+
+                                } else {
+                                    // Payment failed or was canceled
+                                    alert("Payment failed or canceled. Server Error");
+                                    window.location.href = "/error";
+
+                                }
+
+
+                            },
+                            prefill: {
+                                name: responseData.name,
+                                email: responseData.email,
+                            },
+                            theme: {
+                                "color": "#cc8674"
+                            }
+
+                        };
+
+                        const rzp = new Razorpay(options);
+                        rzp.open();
+
+                    } catch (error) {
+                        console.error("Error:", error.message);
+                        // Handle error (show an error message to the user, for example)
+                    }
+                });
+
+                document.getElementById("fbtn").addEventListener("click", function () {
+                    document.getElementById("loadingPopup").style.display = "block";
+                    setTimeout(function () {
+                        document.getElementById("loadingPopup").style.display = "none";
+                    }, 1000);
+                });
+
+            </script>
+
+
 </body>
 
 </html>

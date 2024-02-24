@@ -5,9 +5,16 @@
     <%- include('./partials/head'); %>
         <!-- You can include additional styles for your login page here -->
         <style>
+            :root {
+                --hue-color: 17;
+                --first-color: hsl(var(--hue-color), 46%, 63%);
+                --second-color: hsl(var(--hue-color), 56%, 12%);
+                --background-color: hsl(44, 100%, 98%);
+            }
+
             body {
                 font-family: 'Arial', sans-serif;
-                background-color: #f0f5ff;
+                background-color: var(--background-color);
                 /* Light blue background color */
                 color: #333;
             }
@@ -42,7 +49,7 @@
             }
 
             button {
-                background-color: #007bff;
+                background-color: var(--first-color);
                 /* Blue button color */
                 color: #fff;
                 padding: 10px;
@@ -52,7 +59,7 @@
             }
 
             button:hover {
-                background-color: #0056b3;
+                background-color: var(--second-color);
                 /* Darker blue on hover */
             }
 
@@ -62,7 +69,7 @@
             }
 
             .signup-link a {
-                color: #007bff;
+                color:var(--first-color);
                 /* Blue link color */
                 text-decoration: none;
             }
@@ -118,11 +125,9 @@
                     <div class="signup-link">
                         <p>Don't have an account? <a href="/onboard">Sign up here</a></p>
                     </div>
-                    <div class="terms-line"></div>
+                    <!-- <div class="terms-line"></div> -->
 
-                    <p class="success-message cent">
-                        <%= successMessage %>
-                    </p>
+
 
                 </div>
             </section>

@@ -1,10 +1,11 @@
 // Import required modules
+//
 const mongoose = require('mongoose');
 const { MongoClient } = require('mongodb');
 
 const uri = 'mongodb+srv://sargam:Sargam1234@cluster0.0bqipfb.mongodb.net/?retryWrites=true&w=majority';
 
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(uri);
 
 async function connectToDatabase() {
     try {
@@ -24,7 +25,7 @@ async function connectToDatabase() {
 // Define the fetchUserData function
 async function fetchUserData() {
     const databaseName = 'sargam01';
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    const client = new MongoClient(uri);
 
     try {
         await client.connect();
